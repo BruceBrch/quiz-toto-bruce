@@ -59,11 +59,18 @@ Ouvre `host.html` sur ton ordi, scanne le QR code avec 2 ou 3 téléphones et fa
 4. **Commencer**. Ensuite, chaque écran a un bouton **Suivant**. La touche **Espace** ou **→** fait la même chose, ce qui marche aussi avec une télécommande de présentation.
 
 Le déroulé, comme dans Kahoot :
+- En rejoignant, chaque invité choisit **Team Bruce** ou **Team Toto**.
+- Dans le lobby et pendant toute la partie, les invités peuvent envoyer des **réactions emoji** qui s'envolent sur la télé.
 - La question s'affiche seule pendant 5 secondes, puis les 4 réponses apparaissent et le chrono de 20 s démarre.
-- Les téléphones affichent les 4 formes de couleur.
 - Dès que tout le monde a répondu, ou à la fin du chrono, l'écran montre la bonne réponse et le nombre de votes par réponse. Chaque téléphone affiche Bonne réponse / Raté, les points gagnés et la position du joueur.
-- Ensuite vient le classement des 5 premiers, puis la question suivante.
-- À la fin : podium avec confettis 🎉
+- Ensuite vient le classement des 5 premiers avec la **bataille des équipes**, puis la question suivante.
+- La **dernière question compte double** ⚡ et elle est annoncée avec une animation.
+
+La grande finale, dans l'ordre :
+1. 🥄 **Le classement des loosers** : les 3 derniers, révélés un par un jusqu'au roi des loosers.
+2. 🏆 **L'équipe gagnante**, sur la moyenne des points par joueur.
+3. 🥇 **Le podium**.
+4. 🎁 **Le cadeau surprise** : le bouton « Et le gagnant remporte… » fait trembler le cadeau, puis le révèle. Rien n'est annoncé avant.
 
 **Points :** jusqu'à 1000 par bonne réponse selon la rapidité (minimum 500 si tu réponds juste au dernier moment), plus un bonus de série de +100 par bonne réponse d'affilée, plafonné à +500.
 
@@ -83,6 +90,7 @@ Dans `questions.js`, chaque question ressemble à ceci :
   correct: 1,          // 0 = rouge ▲, 1 = bleu ◆, 2 = jaune ●, 3 = vert ■
   image: "images/alya.jpg",   // optionnel : mets la photo dans un dossier images/
   time: 30,                   // optionnel : durée en secondes pour cette question
+  double: true,               // optionnel : points doublés
 },
 ```
 

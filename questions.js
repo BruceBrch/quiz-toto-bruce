@@ -3,10 +3,16 @@
 //   0 = rouge ▲, 1 = bleu ◆, 2 = jaune ●, 3 = vert ■
 // - "image" (optionnel) = chemin d'une photo, ex. "images/photo1.jpg"
 // - "time" (optionnel) = durée en secondes pour cette question
+// - "double: true" (optionnel) = points doublés, avec annonce spéciale
 
 export const QUIZ = {
   title: "Le Quiz de Toto & Bruce",
+  subtitle: "Édition spéciale 1996 · 30 ans",
   timePerQuestion: 20,
+  teams: [
+    { id: "bruce", name: "Team Bruce", color: "#00c8e8" },
+    { id: "toto", name: "Team Toto", color: "#ff3fa4" },
+  ],
   questions: [
     {
       q: "Combien de jours séparent les anniversaires de Bruce et Toto ?",
@@ -57,6 +63,7 @@ export const QUIZ = {
       q: "Quel club français gagne une Coupe d'Europe en 1996 ?",
       answers: ["OM", "PSG", "Bordeaux", "Monaco"],
       correct: 1,
+      double: true,
     },
   ],
 };

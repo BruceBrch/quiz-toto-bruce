@@ -5,41 +5,48 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Quiz Toto & Bruce — Écran</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <script type="module" src="host.js"></script>
 </head>
 <body class="host">
-  <div id="mode-banner" class="mode-banner" hidden>Mode test local (Firebase pas encore configuré) : les joueurs doivent ouvrir le quiz dans un autre onglet de ce navigateur.</div>
+  <div id="mode-banner" class="mode-banner" hidden>Mode test local (Firebase pas configuré) : les joueurs doivent ouvrir le quiz dans un autre onglet de ce navigateur.</div>
+  <div id="reactions" class="reactions" aria-hidden="true"></div>
 
   <section id="loading" class="screen center"><div class="spinner"></div></section>
 
   <section id="lobby" class="screen" hidden>
-    <header class="join-banner">
-      <div class="join-text">
-        <div class="join-small">Rejoins la partie sur</div>
-        <div id="join-url" class="join-url"></div>
+    <header class="win join-win">
+      <div class="win-bar"><span>REJOINDRE.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
+      <div class="win-body join-banner">
+        <div class="join-text">
+          <div class="join-small">Rejoins la partie sur</div>
+          <div id="join-url" class="join-url"></div>
+        </div>
+        <div class="join-pin">
+          <div class="join-small">PIN du jeu :</div>
+          <div id="pin" class="pin"></div>
+        </div>
+        <div id="qr" class="qr"></div>
       </div>
-      <div class="join-pin">
-        <div class="join-small">PIN du jeu :</div>
-        <div id="pin" class="pin"></div>
-      </div>
-      <div id="qr" class="qr"></div>
     </header>
-    <h1 id="lobby-title" class="lobby-title"></h1>
+    <h1 class="lobby-title"><span id="lobby-title"></span><small id="lobby-sub"></small></h1>
     <div class="lobby-bar">
-      <div class="count"><span class="count-icon">👤</span><b id="player-count">0</b></div>
-      <div class="lobby-wait" id="lobby-wait">En attente des joueurs…</div>
+      <div class="count"><span>👤</span><b id="player-count">0</b></div>
       <button id="start-btn" class="btn" data-next disabled>Commencer</button>
     </div>
-    <div id="player-list" class="player-list"></div>
+    <div id="team-cols" class="team-cols"></div>
     <p class="hint">Astuce : clique sur un pseudo pour retirer le joueur.</p>
   </section>
 
   <section id="question" class="screen" hidden>
-    <h2 id="q-text" class="q-text"></h2>
+    <div class="win q-win">
+      <div class="win-bar"><span id="q-bar">QUESTION_1.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
+      <h2 id="q-text" class="win-body q-text"></h2>
+    </div>
+    <div class="double-banner"><span>⚡ POINTS DOUBLÉS ⚡</span><b>×2</b></div>
     <div class="intro-bar" id="intro-bar"><div></div></div>
     <div class="q-middle">
       <div class="timer" id="q-timer"></div>
@@ -48,14 +55,17 @@
     </div>
     <div class="answers" id="q-answers"></div>
     <footer class="host-foot">
-      <span id="q-index"></span>
+      <span id="q-index" class="foot-chip"></span>
       <button id="skip-btn" class="btn small">Passer</button>
     </footer>
   </section>
 
   <section id="reveal" class="screen" hidden>
-    <h2 id="r-text" class="q-text"></h2>
-    <div class="q-middle">
+    <div class="win q-win">
+      <div class="win-bar"><span id="r-bar">REPONSE.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
+      <h2 id="r-text" class="win-body q-text"></h2>
+    </div>
+    <div class="q-middle reveal-middle">
       <div class="chart" id="r-chart"></div>
       <button id="r-next" class="btn next-btn" data-next>Suivant</button>
     </div>
@@ -65,19 +75,49 @@
   <section id="scores" class="screen" hidden>
     <div class="title-chip">Classement</div>
     <ol id="scoreboard" class="scoreboard"></ol>
+    <div id="s-battle" class="battle-wrap"></div>
     <div class="host-foot">
-      <span id="s-index"></span>
+      <span id="s-index" class="foot-chip"></span>
       <button id="s-next" class="btn" data-next>Question suivante</button>
     </div>
   </section>
 
-  <section id="end" class="screen" hidden>
-    <div class="title-chip" id="end-title"></div>
-    <div class="podium" id="podium"></div>
-    <ol class="scoreboard small" id="end-rest"></ol>
+  <section id="losers" class="screen" hidden>
+    <div class="title-chip loser-chip">🥄 Le classement des loosers 🥄</div>
+    <p class="screen-sub">Avant les champions… place aux artistes du fond de tableau</p>
+    <ol id="loser-list" class="loser-list"></ol>
     <div class="host-foot">
       <span></span>
-      <button id="new-game-btn" class="btn">Nouvelle partie</button>
+      <button id="l-next" class="btn" data-next>Et l'équipe gagnante ?</button>
+    </div>
+  </section>
+
+  <section id="teams" class="screen" hidden>
+    <div class="title-chip">Team Bruce <span class="vs">VS</span> Team Toto</div>
+    <div id="team-result" class="team-result"></div>
+    <div class="host-foot">
+      <span></span>
+      <button id="t-next" class="btn" data-next>Voir le podium</button>
+    </div>
+  </section>
+
+  <section id="end" class="screen" hidden>
+    <div class="title-chip">🏆 Le podium 🏆</div>
+    <div class="podium" id="podium"></div>
+    <div class="host-foot">
+      <button id="new-game-btn" class="btn small ghost">Nouvelle partie</button>
+      <button id="gift-btn" class="btn gift-btn" data-next>Et le gagnant remporte… 🎁</button>
+    </div>
+  </section>
+
+  <section id="gift" class="screen center" hidden>
+    <div class="gift-stage">
+      <div class="gift-box" id="gift-box">🎁</div>
+      <div class="gift-text" id="gift-text">
+        <div class="gift-kicker">Et le grand gagnant remporte…</div>
+        <div class="gift-title">UN CADEAU SURPRISE !</div>
+        <div class="gift-winner" id="gift-winner"></div>
+      </div>
     </div>
   </section>
 </body>

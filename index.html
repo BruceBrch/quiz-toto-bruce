@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#46178f">
+  <meta name="theme-color" content="#2a0b5c">
   <title>Quiz Toto & Bruce</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script type="module" src="player.js"></script>
 </head>
@@ -14,23 +14,35 @@
   <div id="mode-banner" class="mode-banner" hidden>Mode test local : ouvre host.html dans un autre onglet.</div>
 
   <section id="join" class="screen center">
-    <div class="logo">Toto <span>&</span> Bruce</div>
-    <form id="pin-form" class="card">
-      <input id="pin-input" inputmode="numeric" autocomplete="off" placeholder="PIN du jeu" maxlength="7">
-      <button class="btn dark" type="submit">Valider</button>
-      <p class="form-error" id="pin-error"></p>
+    <div class="logo">Toto <span>&</span> Bruce<small>Édition 1996</small></div>
+    <form id="pin-form" class="win join-card">
+      <div class="win-bar"><span>CONNEXION.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
+      <div class="win-body card">
+        <input id="pin-input" inputmode="numeric" autocomplete="off" placeholder="PIN du jeu" maxlength="7">
+        <button class="btn dark" type="submit">Valider</button>
+        <p class="form-error" id="pin-error"></p>
+      </div>
     </form>
-    <form id="name-form" class="card" hidden>
-      <input id="name-input" autocomplete="off" placeholder="Pseudo" maxlength="15">
-      <button class="btn dark" type="submit">C'est parti !</button>
-      <p class="form-error" id="name-error"></p>
+    <form id="name-form" class="win join-card" hidden>
+      <div class="win-bar"><span>PSEUDO.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
+      <div class="win-body card">
+        <input id="name-input" autocomplete="off" placeholder="Pseudo" maxlength="15">
+        <button class="btn dark" type="submit">Suivant</button>
+        <p class="form-error" id="name-error"></p>
+      </div>
     </form>
+    <div id="team-pick" class="team-pick" hidden>
+      <div class="team-pick-title">Choisis ton camp !</div>
+      <div id="team-buttons" class="team-buttons"></div>
+      <p class="form-error" id="team-error"></p>
+    </div>
   </section>
 
   <section id="play" class="screen" hidden>
-    <header class="p-top"><span id="p-qnum"></span><span id="p-streak"></span></header>
+    <header class="p-top"><span id="p-qnum"></span><span id="p-team" class="p-team"></span></header>
     <main id="p-body" class="p-body"></main>
-    <footer class="p-bottom"><span id="p-name"></span><span id="p-score" class="p-score"></span></footer>
+    <div id="react-bar" class="react-bar" hidden></div>
+    <footer class="p-bottom"><span id="p-name"></span><span id="p-streak"></span><span id="p-score" class="p-score"></span></footer>
   </section>
 </body>
 </html>
