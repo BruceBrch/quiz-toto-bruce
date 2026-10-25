@@ -18,9 +18,8 @@
   <section id="loading" class="screen center"><div class="spinner"></div></section>
 
   <section id="lobby" class="screen" hidden>
-    <header class="win join-win">
-      <div class="win-bar"><span>REJOINDRE.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
-      <div class="win-body join-banner">
+    <header class="panel join-win">
+      <div class="join-banner">
         <div class="join-text">
           <div class="join-small">Rejoins la partie sur</div>
           <div id="join-url" class="join-url"></div>
@@ -32,7 +31,11 @@
         <div id="qr" class="qr"></div>
       </div>
     </header>
-    <h1 class="lobby-title"><span id="lobby-title"></span><small id="lobby-sub"></small></h1>
+    <div class="lobby-head">
+      <div class="polaroid slideshow tilt-l" id="slide-a"></div>
+      <h1 class="lobby-title"><span id="lobby-title"></span><small id="lobby-sub"></small></h1>
+      <div class="polaroid slideshow tilt-r" id="slide-b"></div>
+    </div>
     <div class="lobby-bar">
       <div class="count"><span>👤</span><b id="player-count">0</b></div>
       <button id="start-btn" class="btn" data-next disabled>Commencer</button>
@@ -42,9 +45,8 @@
   </section>
 
   <section id="question" class="screen" hidden>
-    <div class="win q-win">
-      <div class="win-bar"><span id="q-bar">QUESTION_1.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
-      <h2 id="q-text" class="win-body q-text"></h2>
+    <div class="panel q-win">
+      <h2 id="q-text" class="q-text"></h2>
     </div>
     <div class="double-banner"><span>⚡ POINTS DOUBLÉS ⚡</span><b>×2</b></div>
     <div class="intro-bar" id="intro-bar"><div></div></div>
@@ -61,19 +63,19 @@
   </section>
 
   <section id="reveal" class="screen" hidden>
-    <div class="win q-win">
-      <div class="win-bar"><span id="r-bar">REPONSE.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
-      <h2 id="r-text" class="win-body q-text"></h2>
+    <div class="panel q-win">
+      <h2 id="r-text" class="q-text"></h2>
     </div>
     <div class="q-middle reveal-middle">
       <div class="chart" id="r-chart"></div>
+      <div class="polaroid tilt-r reveal-photo" id="r-photo" hidden></div>
       <button id="r-next" class="btn next-btn" data-next>Suivant</button>
     </div>
     <div class="answers" id="r-answers"></div>
   </section>
 
   <section id="scores" class="screen" hidden>
-    <div class="title-chip">Classement</div>
+    <div class="title-chip">Classement à la mi-temps</div>
     <ol id="scoreboard" class="scoreboard"></ol>
     <div id="s-battle" class="battle-wrap"></div>
     <div class="host-foot">
@@ -85,7 +87,10 @@
   <section id="losers" class="screen" hidden>
     <div class="title-chip loser-chip">🥄 Le classement des loosers 🥄</div>
     <p class="screen-sub">Avant les champions… place aux artistes du fond de tableau</p>
-    <ol id="loser-list" class="loser-list"></ol>
+    <div class="losers-body">
+      <ol id="loser-list" class="loser-list"></ol>
+      <div class="polaroid tilt-r loser-photo" id="loser-photo" hidden></div>
+    </div>
     <div class="host-foot">
       <span></span>
       <button id="l-next" class="btn" data-next>Et l'équipe gagnante ?</button>
@@ -117,6 +122,18 @@
         <div class="gift-kicker">Et le grand gagnant remporte…</div>
         <div class="gift-title">UN CADEAU SURPRISE !</div>
         <div class="gift-winner" id="gift-winner"></div>
+      </div>
+    </div>
+    <div class="host-foot corner"><span></span><button id="g-next" class="btn" data-next>Le mot de la fin 🎂</button></div>
+  </section>
+
+  <section id="outro" class="screen center" hidden>
+    <div class="outro">
+      <div class="polaroid big tilt-l" id="outro-photo"></div>
+      <div class="outro-text">
+        <div class="outro-kicker">30 ans 🎂</div>
+        <div class="outro-title">Joyeux anniversaire<br><span>Toto & Bruce</span></div>
+        <div class="outro-thanks">Merci à tous d'être là ce soir ❤️</div>
       </div>
     </div>
   </section>

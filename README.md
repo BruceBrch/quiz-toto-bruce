@@ -63,7 +63,8 @@ Le déroulé, comme dans Kahoot :
 - Dans le lobby et pendant toute la partie, les invités peuvent envoyer des **réactions emoji** qui s'envolent sur la télé.
 - La question s'affiche seule pendant 5 secondes, puis les 4 réponses apparaissent et le chrono de 20 s démarre.
 - Dès que tout le monde a répondu, ou à la fin du chrono, l'écran montre la bonne réponse et le nombre de votes par réponse. Chaque téléphone affiche Bonne réponse / Raté, les points gagnés et la position du joueur.
-- Ensuite vient le classement des 5 premiers avec la **bataille des équipes**, puis la question suivante.
+- Pendant la partie, les téléphones n'affichent que les points gagnés sur la question : **ni score total, ni classement**.
+- **À la mi-temps** (après la question 5), l'écran affiche le classement des 5 premiers et la **bataille des équipes**. Tu peux changer le moment avec `scoreboardAfter` dans `questions.js`.
 - La **dernière question compte double** ⚡ et elle est annoncée avec une animation.
 
 La grande finale, dans l'ordre :
@@ -71,6 +72,15 @@ La grande finale, dans l'ordre :
 2. 🏆 **L'équipe gagnante**, sur la moyenne des points par joueur.
 3. 🥇 **Le podium**.
 4. 🎁 **Le cadeau surprise** : le bouton « Et le gagnant remporte… » fait trembler le cadeau, puis le révèle. Rien n'est annoncé avant.
+5. 🎂 **Le mot de la fin** : votre photo et « Joyeux anniversaire Toto & Bruce ».
+
+## Les photos
+
+Elles sont dans le dossier `images/` et se règlent dans `questions.js` (rubrique `photos`) :
+- `lobby` : le diaporama pendant que les invités se connectent.
+- `losers` : la photo sur l'écran des loosers. Mets `""` pour l'enlever.
+- `outro` : la photo de l'écran final.
+- Sur une question, `revealImage: "images/xxx.jpg"` affiche une photo au moment de la réponse.
 
 **Points :** jusqu'à 1000 par bonne réponse selon la rapidité (minimum 500 si tu réponds juste au dernier moment), plus un bonus de série de +100 par bonne réponse d'affilée, plafonné à +500.
 

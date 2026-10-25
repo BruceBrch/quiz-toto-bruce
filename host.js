@@ -11,6 +11,9 @@ const $ = id => document.getElementById(id);
 let pin, state = null, players = {}, answers = {}, answersQ = null, unsubAnswers = null;
 let revealing = false, lastSecond = -1;
 
+const SCOREBOARD_AFTER = QUIZ.scoreboardAfter || [];
+const PHOTOS = QUIZ.photos || {};
+
 const gamePath = p => `games/${pin}${p ? '/' + p : ''}`;
 const showScreen = id => document.querySelectorAll('.screen').forEach(s => { s.hidden = s.id !== id; });
 
@@ -80,7 +83,26 @@ function setupLobby() {
     </div>`).join('');
   $('qr').innerHTML = '';
   if (window.QRCode) new QRCode($('qr'), { text: `${base}?pin=${pin}`, width: 168, height: 168 });
+  startSlideshow();
 }
+
+// Deux polaroïds de part et d'autre du titre, qui font défiler les photos
+function startSlideshow() {
+  const photos = PHOTOS.lobby || [];
+  const slots = [$('slide-a'), $('slide-b')];
+  if (!photos.length) { slots.forEach(s => { s.hidden = true; }); return; }
+  slots.forEach(s => { s.innerHTML = photos.map(src => `<img src="${esc(src)}" alt="">`).join(''); });
+  let i = 0;
+  const show = () => slots.forEach((s, k) =>
+    s.querySelectorAll('img').forEach((img, j) => img.classList.toggle('on', j === (i + k) % photos.length)));
+  show();
+  setInterval(() => { i++; show(); }, 4000);
+}
+
+const polaroid = (el, src) => {
+  el.hidden = !src;
+  el.innerHTML = src ? `<img class="on" src="${esc(src)}" alt="">` : '';
+};
 
 // --- Réactions emoji : chaque joueur a un « slot » qu'il réécrit, on détecte les changements ---
 function listenReactions() {
@@ -153,7 +175,7 @@ function onState() {
   ({
     lobby: () => showScreen('lobby'),
     question: renderQuestion, reveal: renderReveal, scores: renderScores,
-    losers: renderLosers, teams: renderTeams, end: renderEnd, gift: renderGift,
+    losers: renderLosers, teams: renderTeams, end: renderEnd, gift: renderGift, outro: renderOutro,
   })[state.phase]?.();
 }
 
@@ -174,7 +196,6 @@ function renderQuestion() {
   const qd = QUIZ.questions[state.q];
   showScreen('question');
   $('question').classList.toggle('double', !!qd.double);
-  $('q-bar').textContent = qd.double ? 'BONUS_X2.EXE' : `QUESTION_${state.q + 1}.EXE`;
   $('q-index').textContent = `${state.q + 1} / ${N}`;
   $('q-text').textContent = qd.q;
   $('q-media').innerHTML = qd.image ? `<img src="${esc(qd.image)}" alt="">` : '';
@@ -219,7 +240,10 @@ function renderReveal() {
     </div>`).join('');
   $('r-answers').innerHTML = answerTiles(qd, true);
   $('r-answers').className = `answers n${qd.answers.length}`;
-  $('r-next').textContent = state.q + 1 < N ? 'Suivant' : 'Résultats finaux';
+  polaroid($('r-photo'), qd.revealImage);
+  $('r-next').textContent = state.q + 1 >= N ? 'Résultats finaux'
+    : SCOREBOARD_AFTER.includes(state.q + 1) ? 'Classement à la mi-temps'
+    : QUIZ.questions[state.q + 1].double ? 'Dernière question… ⚡' : 'Question suivante';
 }
 
 function teamBattle() {
@@ -255,6 +279,7 @@ function renderScores() {
 function renderLosers() {
   showScreen('losers');
   const list = losers(players);
+  polaroid($('loser-photo'), PHOTOS.losers);
   const titles = ['Mention « peut mieux faire »', 'Vice-roi des loosers', 'Le roi des loosers'];
   const offset = titles.length - list.length;
   // Révélation du 3e pire jusqu'au pire, avec suspense
@@ -314,6 +339,13 @@ function renderGift() {
   }, 2400);
 }
 
+function renderOutro() {
+  showScreen('outro');
+  polaroid($('outro-photo'), PHOTOS.outro);
+  sfx.fanfare();
+  party(6000);
+}
+
 // --- Actions de l'animateur ---
 function startQuestion(i) {
   const qd = QUIZ.questions[i];
@@ -353,13 +385,15 @@ const setPhase = phase => db.update(gamePath(), { 'state/phase': phase });
 $('start-btn').onclick = () => { sfx.unlock(); startQuestion(0); };
 $('skip-btn').onclick = () => reveal();
 $('r-next').onclick = () => {
-  if (state.q + 1 < N) setPhase('scores');
-  else setPhase(losers(players).length ? 'losers' : 'teams');
+  if (state.q + 1 >= N) setPhase(losers(players).length ? 'losers' : 'teams');
+  else if (SCOREBOARD_AFTER.includes(state.q + 1)) setPhase('scores');
+  else startQuestion(state.q + 1);
 };
 $('s-next').onclick = () => startQuestion(state.q + 1);
 $('l-next').onclick = () => setPhase('teams');
 $('t-next').onclick = () => setPhase('end');
 $('gift-btn').onclick = () => setPhase('gift');
+$('g-next').onclick = () => setPhase('outro');
 $('new-game-btn').onclick = () => {
   if (!confirm('Lancer une nouvelle partie ? (les joueurs devront se reconnecter)')) return;
   sessionStorage.removeItem('kq-host-pin');

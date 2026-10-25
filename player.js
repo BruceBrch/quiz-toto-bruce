@@ -142,7 +142,6 @@ function render() {
   viewKey = key;
 
   $('p-name').textContent = me.name;
-  $('p-score').textContent = me.score || 0;
   $('p-qnum').textContent = state.q >= 0 ? `Question ${state.q + 1}` : 'Salle d\'attente';
   $('p-streak').textContent = me.streak > 1 ? `🔥 ${me.streak}` : '';
   $('p-team').textContent = myTeam?.name || '';
@@ -154,11 +153,6 @@ function render() {
   play.className = 'screen';
   const msg = (title, text = '', extra = '') =>
     `<div class="p-msg"><div class="p-title">${title}</div>${text ? `<p>${text}</p>` : ''}${extra}</div>`;
-  const behind = () => {
-    if (rank <= 1) return 'Tu es en tête ! 👑';
-    const prev = r[rank - 2];
-    return `à ${(prev.score || 0) - (me.score || 0)} pts de ${esc(prev.name)}`;
-  };
 
   switch (sub) {
     case 'lobby':
@@ -183,14 +177,15 @@ function render() {
     case 'reveal': {
       const last = me.last?.q === state.q ? me.last : { answered: false, correct: false, points: 0 };
       play.classList.add(last.correct ? 'good' : 'bad');
-      const foot = `<p class="p-rank">${sup(rank)} · ${behind()}</p>`;
+      // Pas de classement sur le téléphone : seulement les points de la question
+      const foot = '<p class="p-rank">Le classement reste secret… 🤫</p>';
       body.innerHTML = last.correct
         ? msg('Bonne réponse', '', `<div class="p-big">✔</div><div class="p-points">+ ${last.points}${state.double ? ' (×2)' : ''}</div>${me.streak > 1 ? `<p>🔥 Série de ${me.streak} !</p>` : ''}${foot}`)
         : msg(last.answered ? 'Raté !' : 'Pas de réponse', '', `<div class="p-big">✖</div><p>${last.answered ? 'Ça arrive aux meilleurs…' : 'Sois plus rapide la prochaine fois !'}</p>${foot}`);
       break;
     }
     case 'scores':
-      body.innerHTML = msg(`${sup(rank)} sur ${r.length}`, behind(), `<div class="p-points">${me.score || 0} pts</div>`);
+      body.innerHTML = msg('Mi-temps ⏸️', 'Le classement est sur l\'écran 👀<br>Alors, tu es où ?');
       break;
     case 'losers':
       body.innerHTML = losers(players).some(p => p.id === pid)
@@ -213,6 +208,9 @@ function render() {
     case 'gift':
       if (rank === 1) { play.classList.add('good'); body.innerHTML = msg('🎁 C\'EST TOI !', 'Tu remportes le <b>cadeau surprise</b> !<br>Va vite le récupérer 🎉', '<div class="p-big">🏆</div>'); }
       else body.innerHTML = msg('🎁 Cadeau surprise !', `<b>${esc(r[0]?.name || '')}</b> remporte le cadeau.<br>Applaudissements ! 👏`);
+      break;
+    case 'outro':
+      body.innerHTML = msg('Merci d\'être venu ! 🎂', 'Joyeux anniversaire Toto & Bruce !<br>Place à la fête 🎉');
       break;
   }
 }

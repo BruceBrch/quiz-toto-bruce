@@ -1,7 +1,8 @@
 // Les questions du quiz.
 // - "correct" = numéro de la bonne réponse, en partant de 0 :
 //   0 = rouge ▲, 1 = bleu ◆, 2 = jaune ●, 3 = vert ■
-// - "image" (optionnel) = chemin d'une photo, ex. "images/photo1.jpg"
+// - "image" (optionnel) = photo affichée pendant la question, ex. "images/photo1.jpg"
+// - "revealImage" (optionnel) = photo affichée au moment de la réponse
 // - "time" (optionnel) = durée en secondes pour cette question
 // - "double: true" (optionnel) = points doublés, avec annonce spéciale
 
@@ -9,6 +10,13 @@ export const QUIZ = {
   title: "Le Quiz de Toto & Bruce",
   subtitle: "Édition spéciale 1996 · 30 ans",
   timePerQuestion: 20,
+  // Classement affiché à l'écran seulement après ces questions (numéros à partir de 1)
+  scoreboardAfter: [5],
+  photos: {
+    lobby: ["images/plage.jpg", "images/palmiers.jpg", "images/soiree.jpg"], // diaporama du lobby
+    losers: "images/soiree.jpg",  // écran des loosers (mets "" pour l'enlever)
+    outro: "images/plage.jpg",    // écran final « Joyeux anniversaire »
+  },
   teams: [
     { id: "bruce", name: "Team Bruce", color: "#00c8e8" },
     { id: "toto", name: "Team Toto", color: "#ff3fa4" },
@@ -23,6 +31,7 @@ export const QUIZ = {
       q: "Comment Bruce et Toto se sont-ils connus ?",
       answers: ["À l'école", "Au club de foot", "La mère de Bruce était la nourrice de Toto", "En colo"],
       correct: 2,
+      revealImage: "images/palmiers.jpg",
     },
     {
       q: "Comment s'appellent les enfants de Toto ?",
@@ -38,6 +47,7 @@ export const QUIZ = {
       q: "À eux deux, combien d'années fêtent-ils ce soir ?",
       answers: ["60", "30", "15", "56"],
       correct: 0,
+      revealImage: "images/plage.jpg",
     },
     {
       q: "En quelle année Bruce a-t-il rejoint La Boîte Immo ?",

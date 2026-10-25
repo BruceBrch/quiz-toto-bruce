@@ -15,17 +15,15 @@
 
   <section id="join" class="screen center">
     <div class="logo">Toto <span>&</span> Bruce<small>Édition 1996</small></div>
-    <form id="pin-form" class="win join-card">
-      <div class="win-bar"><span>CONNEXION.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
-      <div class="win-body card">
+    <form id="pin-form" class="panel join-card">
+      <div class="card">
         <input id="pin-input" inputmode="numeric" autocomplete="off" placeholder="PIN du jeu" maxlength="7">
         <button class="btn dark" type="submit">Valider</button>
         <p class="form-error" id="pin-error"></p>
       </div>
     </form>
-    <form id="name-form" class="win join-card" hidden>
-      <div class="win-bar"><span>PSEUDO.EXE</span><span class="win-btns"><i>_</i><i>□</i><i>×</i></span></div>
-      <div class="win-body card">
+    <form id="name-form" class="panel join-card" hidden>
+      <div class="card">
         <input id="name-input" autocomplete="off" placeholder="Pseudo" maxlength="15">
         <button class="btn dark" type="submit">Suivant</button>
         <p class="form-error" id="name-error"></p>
@@ -42,7 +40,7 @@
     <header class="p-top"><span id="p-qnum"></span><span id="p-team" class="p-team"></span></header>
     <main id="p-body" class="p-body"></main>
     <div id="react-bar" class="react-bar" hidden></div>
-    <footer class="p-bottom"><span id="p-name"></span><span id="p-streak"></span><span id="p-score" class="p-score"></span></footer>
+    <footer class="p-bottom"><span id="p-name"></span><span id="p-streak"></span></footer>
   </section>
 </body>
 </html>
