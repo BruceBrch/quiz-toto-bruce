@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Quiz Toto & Bruce — Écran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script type="module" src="host.js"></script>
+</head>
+<body class="host">
+  <div id="mode-banner" class="mode-banner" hidden>Mode test local (Firebase pas encore configuré) : les joueurs doivent ouvrir le quiz dans un autre onglet de ce navigateur.</div>
+
+  <section id="loading" class="screen center"><div class="spinner"></div></section>
+
+  <section id="lobby" class="screen" hidden>
+    <header class="join-banner">
+      <div class="join-text">
+        <div class="join-small">Rejoins la partie sur</div>
+        <div id="join-url" class="join-url"></div>
+      </div>
+      <div class="join-pin">
+        <div class="join-small">PIN du jeu :</div>
+        <div id="pin" class="pin"></div>
+      </div>
+      <div id="qr" class="qr"></div>
+    </header>
+    <h1 id="lobby-title" class="lobby-title"></h1>
+    <div class="lobby-bar">
+      <div class="count"><span class="count-icon">👤</span><b id="player-count">0</b></div>
+      <div class="lobby-wait" id="lobby-wait">En attente des joueurs…</div>
+      <button id="start-btn" class="btn" data-next disabled>Commencer</button>
+    </div>
+    <div id="player-list" class="player-list"></div>
+    <p class="hint">Astuce : clique sur un pseudo pour retirer le joueur.</p>
+  </section>
+
+  <section id="question" class="screen" hidden>
+    <h2 id="q-text" class="q-text"></h2>
+    <div class="intro-bar" id="intro-bar"><div></div></div>
+    <div class="q-middle">
+      <div class="timer" id="q-timer"></div>
+      <div class="media" id="q-media"></div>
+      <div class="answered"><b id="q-answered">0</b><span>réponses</span></div>
+    </div>
+    <div class="answers" id="q-answers"></div>
+    <footer class="host-foot">
+      <span id="q-index"></span>
+      <button id="skip-btn" class="btn small">Passer</button>
+    </footer>
+  </section>
+
+  <section id="reveal" class="screen" hidden>
+    <h2 id="r-text" class="q-text"></h2>
+    <div class="q-middle">
+      <div class="chart" id="r-chart"></div>
+      <button id="r-next" class="btn next-btn" data-next>Suivant</button>
+    </div>
+    <div class="answers" id="r-answers"></div>
+  </section>
+
+  <section id="scores" class="screen" hidden>
+    <div class="title-chip">Classement</div>
+    <ol id="scoreboard" class="scoreboard"></ol>
+    <div class="host-foot">
+      <span id="s-index"></span>
+      <button id="s-next" class="btn" data-next>Question suivante</button>
+    </div>
+  </section>
+
+  <section id="end" class="screen" hidden>
+    <div class="title-chip" id="end-title"></div>
+    <div class="podium" id="podium"></div>
+    <ol class="scoreboard small" id="end-rest"></ol>
+    <div class="host-foot">
+      <span></span>
+      <button id="new-game-btn" class="btn">Nouvelle partie</button>
+    </div>
+  </section>
+</body>
+</html>

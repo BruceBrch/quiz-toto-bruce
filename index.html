@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#46178f">
+  <title>Quiz Toto & Bruce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="player.js"></script>
+</head>
+<body class="player">
+  <div id="mode-banner" class="mode-banner" hidden>Mode test local : ouvre host.html dans un autre onglet.</div>
+
+  <section id="join" class="screen center">
+    <div class="logo">Toto <span>&</span> Bruce</div>
+    <form id="pin-form" class="card">
+      <input id="pin-input" inputmode="numeric" autocomplete="off" placeholder="PIN du jeu" maxlength="7">
+      <button class="btn dark" type="submit">Valider</button>
+      <p class="form-error" id="pin-error"></p>
+    </form>
+    <form id="name-form" class="card" hidden>
+      <input id="name-input" autocomplete="off" placeholder="Pseudo" maxlength="15">
+      <button class="btn dark" type="submit">C'est parti !</button>
+      <p class="form-error" id="name-error"></p>
+    </form>
+  </section>
+
+  <section id="play" class="screen" hidden>
+    <header class="p-top"><span id="p-qnum"></span><span id="p-streak"></span></header>
+    <main id="p-body" class="p-body"></main>
+    <footer class="p-bottom"><span id="p-name"></span><span id="p-score" class="p-score"></span></footer>
+  </section>
+</body>
+</html>
