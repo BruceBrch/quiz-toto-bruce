@@ -11,7 +11,7 @@ export const QUIZ = {
   subtitle: "Édition spéciale 1996 · 30 ans",
   timePerQuestion: 20,
   // Classement affiché à l'écran seulement après ces questions (numéros à partir de 1)
-  scoreboardAfter: [11],
+  scoreboardAfter: [10],
   photos: {
     lobby: ["images/plage.jpg", "images/palmiers.jpg", "images/soiree.jpg"], // diaporama du lobby
     losers: "images/soiree.jpg",  // écran des loosers (mets "" pour l'enlever)
@@ -23,11 +23,6 @@ export const QUIZ = {
   ],
   questions: [
     // --- Les débuts ---
-    {
-      q: "Combien de jours séparent les anniversaires de Bruce et Toto ?",
-      answers: ["15", "29", "31", "45"],
-      correct: 1,
-    },
     {
       q: "Comment Bruce et Toto se sont-ils connus ?",
       answers: ["À l'école", "Au club de foot", "La mère de Bruce était la nourrice de Toto", "En colo"],
@@ -70,21 +65,25 @@ export const QUIZ = {
       q: "Quelle musique a marqué Bruce et Toto durant leur adolescence ? 🎶",
       answers: ["Nuit de folie — Début de soirée", "Les Sunlights des tropiques — Gilbert Montagné", "Macumba — Jean-Pierre Mader", "Femme libérée — Cookie Dingler"],
       correct: 1,
+      time: 25,
     },
     {
       q: "Complète cette phrase culte entre Bruce et Toto : « Tu te rappelles là où… »",
       answers: ["… on chantait à tue-tête !", "… on mettait la musique à fond !", "… on dansait comme des fous !", "… viens danser, hé !"],
       correct: 3,
+      time: 25,
     },
     {
       q: "Quel morceau Bruce et Toto se prennent-ils pour les interprètes quand ils rappent ensemble ?",
       answers: ["Patrimoine du ghetto — Mac Tyer feat. Kery James", "Le Même Sang — Sinik feat. Diam's", "Maman ne le sait pas — Ninho & Niska", "Ma grosse — Orelsan & Nessbeal"],
       correct: 0,
+      time: 25,
     },
     {
       q: "Quelle musique Bruce a-t-il traduite sur YouTube, cumulant plusieurs centaines de milliers de vues ?",
       answers: ["Femme Like U — K-Maro", "Dernière danse — Kyo", "Leçon particulière — Slaï", "Confessions nocturnes — Diam's et Vitaa"],
       correct: 2,
+      time: 25,
     },
     // --- La vie dans le Sud ---
     {
@@ -105,11 +104,6 @@ export const QUIZ = {
       correct: 3,
     },
     {
-      q: "En quelle année Bruce a-t-il rejoint La Boîte Immo ?",
-      answers: ["2015", "2016", "2018", "2020"],
-      correct: 2,
-    },
-    {
       q: "Comment s'appellent les enfants de Toto ?",
       answers: ["Liam et Soan", "Lowen et Solan", "Lowen et Noah", "Lorenzo et Sacha"],
       correct: 1,
@@ -118,12 +112,6 @@ export const QUIZ = {
       q: "Comment s'appelle la fille de Bruce ?",
       answers: ["Alicia", "Alya", "Aya", "Alyssa"],
       correct: 1,
-    },
-    {
-      q: "À eux deux, combien d'années fêtent-ils ce soir ?",
-      answers: ["60", "30", "15", "56"],
-      correct: 0,
-      revealImage: "images/plage.jpg",
     },
     // --- Spécial 1996 ---
     {
