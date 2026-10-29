@@ -31,8 +31,8 @@ export const QUIZ = {
     },
     {
       q: "Quel point commun Toto partage-t-il avec la maman de Bruce ?",
-      answers: ["Ils ont le même signe astrologique", "Ils sont tous les deux du même mois de naissance", "Ils sont nés le même jour et le même mois"],
-      correct: 2,
+      answers: ["Ils sont tous les deux gauchers", "Ils sont nés le même jour et le même mois", "Ils ont le même deuxième prénom", "Ils ont le même plat préféré"],
+      correct: 1,
     },
     // --- L'enfance ---
     {
